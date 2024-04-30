@@ -1,0 +1,67 @@
+﻿@page
+@model RecursosHumanos.Pages.CAsistencia.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form method="get" action="./Index">
+    <div class="form-group">
+        <label for="nameSearch">Buscar por Cedula:</label>
+        <input type="text" class="form-control" id="nameSearch" name="cedula" />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Asistencia[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asistencia[0].Cedula_e)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asistencia[0].Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asistencia[0].Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Asistencia) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula_e)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @if (@Model.Rol == "3" || @Model.Rol == "4")
+                {
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> 
+                }
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                @if (@Model.Rol == "3" || @Model.Rol == "4")
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>                
+                }                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
